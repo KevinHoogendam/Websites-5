@@ -4,6 +4,13 @@ console.log('Iniializing author schema');
 
 var authorSchema = new mongoose.Schema({
 
+    Firstname: {type: String, required: true},
+    Lastname: {type: String, required: true},
+    Birthdate: {type: Date, required: true, max: Date.now},
+    Country: {type: String, default: "NL"},
+    Ranking: {type: Number, unique: true, min: 0},
+    Books: [{type: mongoose.Schema.Types.ObjectId, ref: "Book"}]
+
 });
 
 mongoose.model('Author', authorSchema);

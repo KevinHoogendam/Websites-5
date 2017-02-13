@@ -4,6 +4,11 @@ console.log('Iniializing books schema');
 
 var bookSchema = new mongoose.Schema({
 
+    Title: {type: String, required: true},
+    PublishDate: {type: Date, required: true, max: Date.now},
+    Category: {type: String, required: true},
+    Chapters: [{title: String, numberOfPages: Number}]
+
 });
 
 mongoose.model('Book', bookSchema);

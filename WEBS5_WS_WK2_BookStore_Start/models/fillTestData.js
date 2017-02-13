@@ -42,7 +42,7 @@ function fillTestAuthors(){
 				new Author(author).save();
 			});
 		} else{
-			console.log('Skipping create courses testdata, allready present');
+			console.log('Skipping create courses testdata, already present');
 		}
 	});
 };
