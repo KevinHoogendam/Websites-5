@@ -1,9 +1,12 @@
+console.log("Hello world");
+
+
 //We gaan een module ophalen genaamd file system.
 //De module is globlaal en kunnen we altijd benaderen
 //NodeJS heeft veel globale modules
 var fs = require('fs');
 
-//Via de command line kunnen we nu deze file execute en 2 parameters meegeven
+//Via de command line kunnen we deze file execute en 2 parameters meegeven
 var dirname = process.argv[2]; //De folder om in te zoeken
 var ext = process.argv[3]; //De extensie waarop we willen zoeken.
 var pat = RegExp('\\.' + ext + '$');

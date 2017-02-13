@@ -1,8 +1,7 @@
 {
    "name":"example02",
    "version":"0.0.1",
-   "dependencies": 
-   {
+   "dependencies": {
        "underscore": "1.4.3"
-   }
+    }
 }
