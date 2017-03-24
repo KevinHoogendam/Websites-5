@@ -45,6 +45,46 @@ router.post('/', function(req, res){
     }
 });
 
+router.put('/:id', function(req, res){
+    //Check if all fields are provided and are valid:
+ if(!req.body.name || 
+        !req.body.year.toString().match(/^[0-9]{4}$/g) || 
+        !req.params.id.toString().match(/^[0-9]{3,}$/g)){
+        res.status(400);
+        res.json({message: "Bad Request"});
+    }
+    else{
+        //Gets us the index of race with given id.
+        var updateIndex = races.map(function(race){
+            return race.id;
+        }).indexOf(parseInt(req.params.id));
+        if(updateIndex === -1){
+        	res.status(404); //Set status to 404 as race was not found
+        	res.json({message: "Not Found"});
+        }else{
+            //Update existing race
+            races[updateIndex] = {
+                id: req.params.id,
+                name: req.body.name,
+                year: req.body.year,
+            };
+            res.json({message: "Race id " + req.params.id + " updated.", location: "/races/" + req.params.id});
+        }
+    }
+});
+
+router.delete('/:id', function(req, res){
+    var removeIndex = races.map(function(race){
+        return race.id;
+    }).indexOf(req.params.id); //Gets us the index of race with given id.
+    if(removeIndex === -1){
+        res.json({message: "Not found"});
+    }else{
+        races.splice(removeIndex, 1);
+        res.send({message: "Race id " + req.params.id + " removed."});
+    }
+});
+
 router.get('*', function(req, res){
     res.send('Invalid URL');
 });
