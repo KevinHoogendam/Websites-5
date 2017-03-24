@@ -73,6 +73,18 @@ router.put('/:id', function(req, res){
     }
 });
 
+router.delete('/:id', function(req, res){
+    var removeIndex = races.map(function(race){
+        return race.id;
+    }).indexOf(req.params.id); //Gets us the index of race with given id.
+    if(removeIndex === -1){
+        res.json({message: "Not found"});
+    }else{
+        races.splice(removeIndex, 1);
+        res.send({message: "Race id " + req.params.id + " removed."});
+    }
+});
+
 router.get('*', function(req, res){
     res.send('Invalid URL');
 });
