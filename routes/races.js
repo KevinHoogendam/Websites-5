@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var async = require('async');
+
+var mongoose = require('mongoose');
+RaceModel = mongoose.model('Race');
 
 var races = [
     {id: 101, name: "Race 1", year: 1999},
@@ -9,7 +13,22 @@ var races = [
 ];
 
 router.get('/', function(req, res){
-	res.json(races);
+    var query = {};
+	if(req.params.id){
+		query._id = req.params.id;
+	} 
+
+	var result = RaceModel.find(query);
+
+	result
+		.then(data => {
+			// We hebben gezocht op id, dus we gaan geen array teruggeven.
+			if(req.params.id){
+				data = data[0];
+			}
+			return res.json(data);
+		})
+		.fail(err => handleError(req, res, 500, err));
 });
 
 router.get('/:id([0-9]{3,})', function(req, res){
