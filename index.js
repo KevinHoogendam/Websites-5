@@ -6,6 +6,17 @@ var multer = require('multer');
 var config = require('./config/config.js');
 var upload = multer();
 
+function handleError(req, res, statusCode, message){
+    console.log();
+    console.log('-------- Error handled --------');
+    console.log('Request Params: ' + JSON.stringify(req.params));
+    console.log('Request Body: ' + JSON.stringify(req.body));
+    console.log('Response sent: Statuscode ' + statusCode + ', Message "' + message + '"');
+    console.log('-------- /Error handled --------');
+    res.status(statusCode);
+    res.json(message);
+};
+
 var app = express();
 
 app.use(cookieParser());
@@ -32,9 +43,10 @@ mongoose.connect(connectionString);
     require('./models/fillTestData')(model);
 // /Models
 
-//Require the Router we defined in races.js
+//Require Routes
 var races = require('./routes/races.js');
 
 app.use('/races', races); 
+// /Require Routes
 
 app.listen(process.env.PORT || 3000);

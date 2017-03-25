@@ -1,7 +1,7 @@
 var async = require('async');
 // Used for getting the environment;
 var app = require('express')();
-
+var mongoose = require('mongoose');
 function saveCallback(err){
 	if(err){
 		log('Fill testdata failed, reason: %s', err);
@@ -11,9 +11,9 @@ function saveCallback(err){
 
 function fillTestRaces(Race, done){
 	var testData = [
-		{ _id: 'race1', name: 'raceeee'},
-		{ _id: 'race2', name: 'zuipen'},
-		{ _id: 'race3', name: 'geen kinderspel'},
+		{ _id:  mongoose.Types.ObjectId(), name: 'raceeee'},
+		{ _id:  mongoose.Types.ObjectId(), name: 'zuipen'},
+		{ _id:  mongoose.Types.ObjectId(), name: 'geen kinderspel'},
 	];
 
 	Race.find({}, function(err, data){
@@ -34,9 +34,9 @@ function fillTestRaces(Race, done){
 
 function fillTestUsers(User, done){
 	var testData = [
-		{ _id: 'user1', name: 'Jan'},
-		{ _id: 'user2', name: 'Jen'},
-		{ _id: 'user3', name: 'Jun'},
+		{ _id: mongoose.Types.ObjectId(), name: 'Jan'},
+		{ _id: mongoose.Types.ObjectId(), name: 'Jen'},
+		{ _id: mongoose.Types.ObjectId(), name: 'Jun'},
 	];
 
 	User.find({}, function(err, data){
