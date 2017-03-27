@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var handleError;
-
+var request = require('request');
 var mongoose = require('mongoose');
 RaceModel = mongoose.model('Race');
 
@@ -68,6 +68,17 @@ function putRace(req, res){
         res.status(400);
         res.json({message: "Bad Request"});
     }
+}
+
+function requestLeague() {
+    request('http://ddragon.leagueoflegends.com/cdn/6.5.1/data/en_US/champion.json', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(JSON.parse(body));
+        }
+        else {
+            console.log("fout");
+        }
+    });
 }
 
 //Routing
