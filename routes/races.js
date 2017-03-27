@@ -1,19 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
-
+var handleError;
+var request = require('request');
 var mongoose = require('mongoose');
 RaceModel = mongoose.model('Race');
 
-var races = [
-    {id: 101, name: "Race 1", year: 1999},
-    {id: 102, name: "Race 2", year: 2010},
-    {id: 103, name: "Race 3", year: 2008},
-    {id: 104, name: "Race 4", year: 1957}
-];
-
-router.get('/', function(req, res){
+function getRaces(req, res){
     var query = {};
+
 	if(req.params.id){
 		query._id = req.params.id;
 	} 
@@ -28,81 +23,74 @@ router.get('/', function(req, res){
 			}
 			return res.json(data);
 		})
-		.fail(err => handleError(req, res, 500, err));
-});
+		.fail();
+}
 
-router.get('/:id([0-9]{3,})', function(req, res){
-    var currRace = races.filter(function(race){
-        if(race.id == req.params.id){
-            return true;
+function addRace(req, res){
+    if(req.body.name){
+        var id = mongoose.Types.ObjectId();
+        var newRace = { _id: id, name: req.body.name};
+        RaceModel.find({}, function(err, data){
+			new RaceModel(newRace).save();
+	    });
+        
+        res.send("New record added with ID: " + id);
+    }
+    else{
+       res.status(400);
+       res.json({message: "Bad Request"});
+    }
+}
+
+function deleteRace(req, res){
+    if(req.params.id){
+        RaceModel.findByIdAndRemove(req.params.id).exec();
+        res.send("Deleted record with ID: +" + req.params.id);
+    }
+    else{
+       res.status(400);
+       res.json({message: "Bad Request"});
+    }
+}
+
+function putRace(req, res){
+    if(req.params.id && req.body.name){
+        var query = { '_id': req.params.id };
+        req.newData = {};
+        req.newData.name = req.body.name;
+        RaceModel.findOneAndUpdate(query, req.newData, function(err, doc){
+            if (err) return res.send(500, { error: err });
+            return res.send("Changed record with ID: +" + req.params.id);
+        });
+        
+    }
+    else {
+        res.status(400);
+        res.json({message: "Bad Request"});
+    }
+}
+
+function requestLeague() {
+    request('http://ddragon.leagueoflegends.com/cdn/6.5.1/data/en_US/champion.json', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(JSON.parse(body));
+        }
+        else {
+            console.log("fout");
         }
     });
-    if(currRace.length == 1){
-        res.json(currRace[0])
-    }
-    else{
-        res.status(404); //Set status to 404 as race was not found
-        res.json({message: "Not Found"});
-    }
-});
+}
 
-router.post('/', function(req, res){
-	//Check if all fields are provided and are valid:
-    if(!req.body.name || 
-        !req.body.year.toString().match(/^[0-9]{4}$/g)){
-        res.status(400);
-        res.json({message: "Bad Request"});
-    }
-    else{
-        var newId = races[races.length-1].id+1;
-        races.push({
-            id: newId,
-            name: req.body.name,
-            year: req.body.year,
-        });
-        res.json({message: "New race created.", location: "/races/" + newId});
-    }
-});
+//Routing
+router.route('/')
+	.get(getRaces)
+	.post(addRace)
+    .delete(deleteRace);
 
-router.put('/:id', function(req, res){
-    //Check if all fields are provided and are valid:
- if(!req.body.name || 
-        !req.body.year.toString().match(/^[0-9]{4}$/g) || 
-        !req.params.id.toString().match(/^[0-9]{3,}$/g)){
-        res.status(400);
-        res.json({message: "Bad Request"});
-    }
-    else{
-        //Gets us the index of race with given id.
-        var updateIndex = races.map(function(race){
-            return race.id;
-        }).indexOf(parseInt(req.params.id));
-        if(updateIndex === -1){
-        	res.status(404); //Set status to 404 as race was not found
-        	res.json({message: "Not Found"});
-        }else{
-            //Update existing race
-            races[updateIndex] = {
-                id: req.params.id,
-                name: req.body.name,
-                year: req.body.year,
-            };
-            res.json({message: "Race id " + req.params.id + " updated.", location: "/races/" + req.params.id});
-        }
-    }
-});
-
-router.delete('/:id', function(req, res){
-    var removeIndex = races.map(function(race){
-        return race.id;
-    }).indexOf(req.params.id); //Gets us the index of race with given id.
-    if(removeIndex === -1){
-        res.json({message: "Not found"});
-    }else{
-        races.splice(removeIndex, 1);
-        res.send({message: "Race id " + req.params.id + " removed."});
-    }
-});
+router.route('/:id')
+	.get(getRaces)
+    .delete(deleteRace)
+    .put(putRace);
 
 router.get('*', function(req, res){
     res.send('Invalid URL');
