@@ -17,7 +17,7 @@ function fillTestRaces(Race, done){
 	];
 
 	Race.find({}, function(err, data){
-		// Als er nog geen boeken zijn vullen we de testdata
+		// Als er nog geen races zijn vullen we de testdata
 		if(data.length == 0){
 			log('Creating race testdata');
 			
@@ -40,7 +40,7 @@ function fillTestUsers(User, done){
 	];
 
 	User.find({}, function(err, data){
-		// Als er nog geen boeken zijn vullen we de testdata
+		// Als er nog geen users zijn vullen we de testdata
 		if(data.length == 0){
 			log('Creating user testdata');
 			

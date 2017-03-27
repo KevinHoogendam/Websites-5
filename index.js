@@ -32,8 +32,9 @@ mongoose.connect(connectionString);
     require('./models/fillTestData')(model);
 // /Models
 
-//Require the Router we defined in races.js
+//Require the Router we defined in movies.js
 var races = require('./routes/races.js');
+var places = require('./routes/places.js');
 
 app.use('/races', races); 
 
