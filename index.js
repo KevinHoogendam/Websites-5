@@ -45,8 +45,10 @@ mongoose.connect(connectionString);
 
 //Require Routes
 var races = require('./routes/races.js');
+var places = require('./routes/places.js');
 
 app.use('/races', races); 
+app.use('/places', places); 
 // /Require Routes
 
 app.listen(process.env.PORT || 3000);

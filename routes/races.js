@@ -70,17 +70,6 @@ function putRace(req, res){
     }
 }
 
-function requestLeague() {
-    request('http://ddragon.leagueoflegends.com/cdn/6.5.1/data/en_US/champion.json', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.json(JSON.parse(body));
-        }
-        else {
-            console.log("fout");
-        }
-    });
-}
-
 //Routing
 router.route('/')
 	.get(getRaces)
