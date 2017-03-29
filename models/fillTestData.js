@@ -11,9 +11,9 @@ function saveCallback(err){
 
 function fillTestRaces(Race, done){
 	var testData = [
-		{ _id:  mongoose.Types.ObjectId(), name: 'raceeee'},
-		{ _id:  mongoose.Types.ObjectId(), name: 'zuipen'},
-		{ _id:  mongoose.Types.ObjectId(), name: 'geen kinderspel'},
+		{ _id:  mongoose.Types.ObjectId(), name: 'raceeee', waypoints: [{id: '110ea987dfe7e26956c1fc27f163abb18168bed3', name: 'Starbucks De Meern'}, {id: '80f43809517d9dc47d9e20d2cd6f5c52ef749d5f', name: 'Hotel De Gouden Leeuw'}]},
+		{ _id:  mongoose.Types.ObjectId(), name: 'zuipen', waypoints: [{id: '110ea987dfe7e26956c1fc27f163abb18168bed3', name: 'Starbucks De Meern'}, {id: '9d9917b44e35cdd81ac66b9ee897b5308b9a2a5e', name: 'BP'}]},
+		{ _id:  mongoose.Types.ObjectId(), name: 'geen kinderspel', waypoints: [{id: '110ea987dfe7e26956c1fc27f163abb18168bed3', name: 'Starbucks De Meern'}]},
 	];
 
 	Race.find({}, function(err, data){
@@ -25,35 +25,12 @@ function fillTestRaces(Race, done){
 				new Race(race).save(saveCallback);
 			});
 		} else{
-			log('Skipping create race testdata, allready present');
+			log('Skipping create race testdata, already present');
 		}
 	});
 
 	done();
 };
-
-// function fillTestUsers(User, done){
-// 	var testData = [
-// 		{ _id: mongoose.Types.ObjectId(), name: 'Jan'},
-// 		{ _id: mongoose.Types.ObjectId(), name: 'Jen'},
-// 		{ _id: mongoose.Types.ObjectId(), name: 'Jun'},
-// 	];
-
-// 	User.find({}, function(err, data){
-// 		// Als er nog geen boeken zijn vullen we de testdata
-// 		if(data.length == 0){
-// 			log('Creating user testdata');
-			
-// 			testData.forEach(function(user){
-// 				new User(user).save(saveCallback);
-// 			});
-// 		} else{
-// 			log('Skipping create user testdata, allready present');
-// 		}
-// 	});
-
-// 	done();
-// };
 
 function log(message){
 	if(app.get('env') == 'development'){
