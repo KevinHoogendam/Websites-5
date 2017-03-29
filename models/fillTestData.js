@@ -32,28 +32,28 @@ function fillTestRaces(Race, done){
 	done();
 };
 
-function fillTestUsers(User, done){
-	var testData = [
-		{ _id: mongoose.Types.ObjectId(), name: 'Jan'},
-		{ _id: mongoose.Types.ObjectId(), name: 'Jen'},
-		{ _id: mongoose.Types.ObjectId(), name: 'Jun'},
-	];
+// function fillTestUsers(User, done){
+// 	var testData = [
+// 		{ _id: mongoose.Types.ObjectId(), name: 'Jan'},
+// 		{ _id: mongoose.Types.ObjectId(), name: 'Jen'},
+// 		{ _id: mongoose.Types.ObjectId(), name: 'Jun'},
+// 	];
 
-	User.find({}, function(err, data){
-		// Als er nog geen boeken zijn vullen we de testdata
-		if(data.length == 0){
-			log('Creating user testdata');
+// 	User.find({}, function(err, data){
+// 		// Als er nog geen boeken zijn vullen we de testdata
+// 		if(data.length == 0){
+// 			log('Creating user testdata');
 			
-			testData.forEach(function(user){
-				new User(user).save(saveCallback);
-			});
-		} else{
-			log('Skipping create user testdata, allready present');
-		}
-	});
+// 			testData.forEach(function(user){
+// 				new User(user).save(saveCallback);
+// 			});
+// 		} else{
+// 			log('Skipping create user testdata, allready present');
+// 		}
+// 	});
 
-	done();
-};
+// 	done();
+// };
 
 function log(message){
 	if(app.get('env') == 'development'){
@@ -63,7 +63,7 @@ function log(message){
 
 module.exports = function(model){
 	async.waterfall([
-		function(done){ fillTestRaces(model.Race, done); },
-		function(done){ fillTestUsers(model.User, done); }
+		function(done){ fillTestRaces(model.Race, done); }
+		// function(done){ fillTestUsers(model.User, done); }
 	]);
 }
