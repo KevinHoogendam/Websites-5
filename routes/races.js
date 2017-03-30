@@ -7,23 +7,23 @@ var mongoose = require('mongoose');
 RaceModel = mongoose.model('Race');
 
 function getRaces(req, res){
+   
     var query = {};
-
 	if(req.params.id){
 		query._id = req.params.id;
 	} 
 
 	var result = RaceModel.find(query);
+	result.sort({ ranking: 1 })
 
-	result
-		.then(data => {
-			// We hebben gezocht op id, dus we gaan geen array teruggeven.
-			if(req.params.id){
-				data = data[0];
-			}
-			return res.json(data);
-		})
-		.fail();
+	result.exec(function(err, data){
+		if(err){ return handleError(req, res, 500, err); }
+
+        
+       //     return res.json(data);
+        
+       res.render('races/races', { races: data });
+	});
 }
 
 function addRace(req, res){

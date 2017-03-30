@@ -1,0 +1,26 @@
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h1><span class="fa"></span> Races</h1>
+
+    <!-- show any messages that come back with authentication -->
+    {{#if message }}
+        <div class="alert alert-danger">{{message}}</div>
+    {{/if}}
+
+    <h1>Aantal: {{races.length}}</h1>
+    <ul>
+        {{#each races}}
+        <li>
+            <div>
+                <strong>Id: </strong><span>{{_id}}</span><br />
+                <strong>Name: </strong><span>{{name}}</span><br />
+                <strong>Waypoints:</strong><br />
+                {{#each waypoints}}
+                <strong>waypointName: </strong><span>{{name}}</span><br />           
+                {{/each}}
+            </div>
+        </li>
+        <br />
+        {{/each}}
+    </ul>
+</div>
