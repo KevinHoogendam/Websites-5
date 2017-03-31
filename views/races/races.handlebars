@@ -18,6 +18,12 @@
                 {{#each waypoints}}
                 <strong>waypointName: </strong><span>{{name}}</span><br />           
                 {{/each}}
+                <button class="deleteRace" id="{{_id}}">delete</button>
+                <select>
+                    {{#each ../allwaypoints}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
             </div>
         </li>
         <br />
@@ -31,3 +37,12 @@
     <input type="submit" value="Submit">
 </form>
 </div>
+<script>
+    $( ".deleteRace" ).click(function() {
+              $.ajax({
+                       url: '/races/' + $(this).attr('id'),
+                       type: 'DELETE'
+             });
+             location.reload();
+        });
+</script>

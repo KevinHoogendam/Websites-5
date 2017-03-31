@@ -6,8 +6,27 @@ var request = require('request');
 var mongoose = require('mongoose');
 RaceModel = mongoose.model('Race');
 
+
+
+function getAllWaypoints(req, res, next) {
+    if (req.query.contentType == "html") {
+        request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&location=52%2C5&radius=10000&type=cafe', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.allwaypoints = JSON.parse(body).results;
+                next();
+            }
+            else {
+                console.log("Fout bij ophalen Google Waypoints API");
+                next();
+            }
+        });
+    }
+    else {
+        next();
+    }
+}
+
 function getRaces(req, res){
-   
     var query = {};
 	if(req.params.id){
 		query._id = req.params.id;
@@ -19,10 +38,12 @@ function getRaces(req, res){
 	result.exec(function(err, data){
 		if(err){ return handleError(req, res, 500, err); }
 
-        
-       //     return res.json(data);
-        
-       res.render('races/races', { races: data });
+       if(req.query.contentType == "html"){
+         res.render('races/races', { races: data , allwaypoints: res.allwaypoints});
+       }
+       else{
+           return res.json(data);
+       }
 	});
 }
 
@@ -43,6 +64,7 @@ function addRace(req, res){
 }
 
 function deleteRace(req, res){
+    console.log("deleting" + req.params.id);
     if(req.params.id){
         RaceModel.findByIdAndRemove(req.params.id).exec();
         res.send("Deleted record with ID: +" + req.params.id);
@@ -71,6 +93,8 @@ function putRace(req, res){
 }
 
 //Routing
+router.use(getAllWaypoints);
+
 router.route('/')
 	.get(getRaces)
 	.post(addRace)
