@@ -7,7 +7,9 @@ var mongoose = require('mongoose');
 RaceModel = mongoose.model('Race');
 
 function getRaces(req, res){
-   
+   console.log(req.query);
+
+
     var query = {};
 	if(req.params.id){
 		query._id = req.params.id;
@@ -17,12 +19,12 @@ function getRaces(req, res){
 	result.sort({ ranking: 1 })
 
 	result.exec(function(err, data){
-		if(err){ return handleError(req, res, 500, err); }
-
-        
-       //     return res.json(data);
-        
-       res.render('races/races', { races: data });
+	   if(err){ return handleError(req, res, 500, err); }
+    
+       if(req.query.contentType == "html"){
+        res.render('races/races', { races: data });
+       }
+        else{return res.json(data);}
 	});
 }
 
