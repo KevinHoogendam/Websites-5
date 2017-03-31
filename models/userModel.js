@@ -41,8 +41,8 @@ var init = function(mongoose){
 		};
 
 		return false;
-	};
-
+	}; 
+	
 	userSchema.methods.hasAllRoles = function(roles){
 		if(!Array.isArray(roles)){
 			roles = [roles];
