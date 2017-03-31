@@ -27,6 +27,7 @@ function getAllWaypoints(req, res, next) {
 }
 
 function getRaces(req, res){
+
     var query = {};
 	if(req.params.id){
 		query._id = req.params.id;
@@ -36,6 +37,7 @@ function getRaces(req, res){
 	result.sort({ ranking: 1 })
 
 	result.exec(function(err, data){
+
 		if(err){ return handleError(req, res, 500, err); }
 
        if(req.query.contentType == "html"){
