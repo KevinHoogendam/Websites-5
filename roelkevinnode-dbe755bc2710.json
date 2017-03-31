@@ -10,5 +10,5 @@
   "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
   "client_secret":"Rm6No-wfqWGhEejflkXpecFM",
   "redirect_uris":["http://roelkevinnode.herokuapp.com/auth/google/callback","https://roelkevinnode.herokuapp.com/auth/google/callback"],
-  "javascript_origins":["http://roelkevinnode.herokuapp.com","https://roelkevinnode.herokuapp.com"],
+  "javascript_origins":["http://roelkevinnode.herokuapp.com","https://roelkevinnode.herokuapp.com"]
 }
