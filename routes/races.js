@@ -78,15 +78,29 @@ function deleteRace(req, res){
 }
 
 function putRace(req, res){
-    if(req.params.id && req.body.name){
+    console.log(req.body.waypoint);
+    if(req.params.id){
         var query = { '_id': req.params.id };
         req.newData = {};
-        req.newData.name = req.body.name;
-        RaceModel.findOneAndUpdate(query, req.newData, function(err, doc){
-            if (err) return res.send(500, { error: err });
-            return res.send("Changed record with ID: +" + req.params.id);
-        });
-        
+
+        //Put name
+        if(req.body.name) {
+            req.newData.name = req.body.name;
+            RaceModel.findOneAndUpdate(query, req.newData, function(err, doc){
+                if (err) return res.send(500, { error: err });
+                return res.send("Changed record with ID: +" + req.params.id);
+            });
+        }
+        else if (req.body.waypoint) {
+            RaceModel.findByIdAndUpdate(
+                req.params.id,
+                { $push: { "waypoints": req.body.waypoint}},
+                { upsert: true },
+                function (err, model) {
+                   if(err) console.log(err);
+                }
+            );
+        }
     }
     else {
         res.status(400);

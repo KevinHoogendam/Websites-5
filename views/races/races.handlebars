@@ -18,12 +18,13 @@
                 {{#each waypoints}}
                 <strong>waypointName: </strong><span>{{name}}</span><br />           
                 {{/each}}
-                <button class="deleteRace" id="{{_id}}">delete</button>
-                <select>
+                <button class="deleteRace" id="delete{{_id}}">delete</button>
+                <select class="waypointselect" id="waypointselect{{_id}}">
                     {{#each ../allwaypoints}}
                     <option value="{{id}}">{{name}}</option>
                     {{/each}}
                 </select>
+                <button class="addWaypoint" id="addWaypoint{{_id}}">Add Waypoint</button>
             </div>
         </li>
         <br />
@@ -38,11 +39,23 @@
 </form>
 </div>
 <script>
-    $( ".deleteRace" ).click(function() {
-              $.ajax({
-                       url: '/races/' + $(this).attr('id'),
-                       type: 'DELETE'
-             });
-             location.reload();
+    $(".deleteRace").click(function () {
+        $.ajax({
+            url: '/races/' + $(this).attr('id').slice(6),
+            type: 'DELETE'
         });
+        location.reload();
+    });
+
+    $(".addWaypoint").click(function () {
+        var raceId = $(this).attr('id').slice(11);
+        var waypointId = $('#waypointselect' + raceId).find(":selected").attr('value');
+        var waypointName = $('#waypointselect' + raceId).find(":selected").text();
+        $.ajax({
+            url: '/races/' + raceId,
+            type: 'PUT',
+            data: { waypoint: {id: waypointId, name: waypointName} }
+        });
+        location.reload();
+    });
 </script>
