@@ -1,7 +1,7 @@
 module.exports = {
 	'googleAuth' : {
-        'clientID'      : '1053314850498-1jcthrah64q8v5nhq1ma6gihuj59nb0p.apps.googleusercontent.com',
-        'clientSecret'  : 'pbdOe74oJEaaPhlbbcGkVejL',
+        'clientID'      : '245706797236-2k9ef0kluu562uni1gm27j9asta4cc26.apps.googleusercontent.com',
+        'clientSecret'  : 'Rm6No-wfqWGhEejflkXpecFM',
         'callbackURL'   : '/auth/google/callback'
     }
 };

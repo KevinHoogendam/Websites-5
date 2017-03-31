@@ -1,3 +1,6 @@
 AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M    :API KEY
 https://roelkevinnode.herokuapp.com		: URL
 https://console.developers.google.com	: API shizzle
+
+245706797236-2k9ef0kluu562uni1gm27j9asta4cc26.apps.googleusercontent.com    : Client ID Oauth
+Rm6No-wfqWGhEejflkXpecFM    : Client secret ID Oauth
