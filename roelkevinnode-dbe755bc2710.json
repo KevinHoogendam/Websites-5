@@ -4,9 +4,12 @@
   "private_key_id": "dbe755bc2710e2b29ee7ca4949b554116e471b5e",
   "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5blncMTiYOR5Q\nWJusac6r8IvFEqT8KDkU58EAy8mH0hhFh/QyCi8i1gkApLZIQyIQ8io/qUkfYMTb\n26LTAyMcrzVwK4xZkPXKAbMOgqjU5YwB83KklEbZ6V25kl2QgS75blqfCDubU4yw\n/TJ46H2hIin+R0p4L5t72b913GFB1+guzeKYDS/09upMNciSjKJcLIsDr5U8y6AX\n9A9ikLvKgDJEVVfSg5iP1Cjbl21Hn+0XOO2+f0kmL6NlvXQez4g/9ppFCN2WDOD7\nIM/cp7WVTugFhJm2uN3gSHBYyOYpOmWnLlrYcO5e32X7DQVlxSuMi61E5I7CHBN1\nEpyK/JrzAgMBAAECggEBAJs1yvGMIZsI9F68TFGcnuk8h0GFwaNu55igA+TurtmI\n+df5XGUmMR4vmYl4VTtXNgSJLuPqhtJE5YJB7aBCV/mCjnA9g1TVCWb01TOoGjlZ\nij93ztYDZuqvc0wJP1fdSbxuqlvDQGFbJcBfrweVUtK1DgFRGvxOnQ6lzKSSurWo\n3lj7gwDA972xqHlHX2GjWWomegwDzP3lhsC/zzjchubWuthj88VPbT+hLUbxycU9\n55954Sn8BmlB6bz5SFGr3x7CGi17OH1Wpt4zZf/dYtFMhHl8NAn0JS/kat85A2WW\n1Up5Yfdq54ht/kAk3ed0TDTCGhfMrA2kXGWFKUALw0ECgYEA3glmSgN3aKq9HGTO\na7heNV78Jw9iT4dW/ldmB2Znyv8CIoIUVlIEQO0I/8V+hLJ8FkEqrZgRLLfQrUHo\n784DhJw/7zctTHWzuGIQVbGAM5zbaha/zoay7kGL4pD7MwlaJ/nN25cUCFkJraiF\n+qhwPc+rLkTHUuU0+7JChmKOtJ8CgYEA1cuIZOPdO9DiJwG5m065x5xOuTa6saJB\nDT7ANVfCpXBe9FKEv3O22KEyEVdcl4jlW0XAl7fI8W9XEev21uwWV72xQBgGUuzU\nyh61vFjCxIsaRhcWHnOFvBSEptodznWoyUz8iG+PTfIFoDaWSItxb1HPg7IXd2Zm\n/W6BUTvIRS0CgYByLzVKZMP4sK12N6UsInFYUxOrZq7xJTGotPuEXLaN31ySsICS\n77S+Sufw2Pi6dyt3KmYvRd+3NoR7RUTsZe7LOKtscty50GHvNYce+pxqboUr5q0X\nIZBNFKpChrqYQXv6yO2DuwsTS+69Psg/4nVuZCitL7Otvq/jrIWnpHGtEwKBgF+q\n2fe7dy3jBK/Lt9BlZACMUzXR5azDHDTfFYdJJBJ/vB28Jya8kt9REmRsIUS1v1we\nVFYPqV1QIzgjzKrTrhPJEF3L4liNHZLsNwp29YCZdkJS5lTuALPuwoUfKSNPxx18\n06wBr7CDUj0k8A66RyI3C5K0yIdnTUKuhjNhevZpAoGAGSIYZZdFiRKMk2Y/8UgZ\nG+u3ZYufvSOGnFtvM9sKWP+KgLMGARsKI2bcroH88apBweXj/SYlxdFvatk5OIGH\nN+ONrfOQlPuvSWryDjX0Q4BC5Z+TE3HHmrEJkZmmggapAiTf7Ov4pGR6hbmQ7cG5\n9RDVdkV9Mj3ad5cJUiBN1wQ=\n-----END PRIVATE KEY-----\n",
   "client_email": "245706797236-compute@developer.gserviceaccount.com",
-  "client_id": "107736150388220486287",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://accounts.google.com/o/oauth2/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_id":"245706797236-2k9ef0kluu562uni1gm27j9asta4cc26.apps.googleusercontent.com",
+  "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+  "token_uri":"https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+  "client_secret":"Rm6No-wfqWGhEejflkXpecFM",
+  "redirect_uris":["http://roelkevinnode.herokuapp.com/auth/google/callback","https://roelkevinnode.herokuapp.com/auth/google/callback"],
+  "javascript_origins":["http://roelkevinnode.herokuapp.com","https://roelkevinnode.herokuapp.com"],
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/245706797236-compute%40developer.gserviceaccount.com"
 }
