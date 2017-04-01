@@ -79,6 +79,7 @@ function deleteRace(req, res){
 
 function putRace(req, res){
     console.log(req.body.waypoint);
+    console.log(req.params.id);
     if(req.params.id){
         var query = { '_id': req.params.id };
         req.newData = {};
@@ -92,14 +93,23 @@ function putRace(req, res){
             });
         }
         else if (req.body.waypoint) {
-            RaceModel.findByIdAndUpdate(
-                req.params.id,
-                { $push: { "waypoints": req.body.waypoint}},
-                { upsert: true },
-                function (err, model) {
-                   if(err) console.log(err);
+            var alreadyInRace = RaceModel.find({
+                "_id": req.params.id,
+                "waypoints.id": req.body.waypoint.id
+            });
+            alreadyInRace.exec(function (err, data) {
+                if (data == "") {
+                    console.log("adding waypoint to race");
+                    RaceModel.findByIdAndUpdate(
+                        req.params.id,
+                        { $push: { "waypoints": req.body.waypoint } },
+                        { upsert: true },
+                        function (err, model) {
+                            if (err) console.log(err);
+                        }
+                    );
                 }
-            );
+            });
         }
     }
     else {
