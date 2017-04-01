@@ -59,6 +59,7 @@ var init = function(User) {
                     // set the user's local credentials
                     newUser.local.username    = username;
                     newUser.local.password = newUser.generateHash(password);
+                    newUser.roles = ["guest"];
 
                     // save the user
                     newUser.save(function(err) {
@@ -124,7 +125,7 @@ var init = function(User) {
                     newUser.google.token = token;
                     newUser.google.name  = profile.displayName;
                     newUser.google.email = profile.emails[0].value; // pull the first email
-
+                    newUser.roles = ["guest"];
                     // save the user
                     newUser.save(function(err) {
                         if (err)

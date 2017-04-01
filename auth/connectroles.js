@@ -22,7 +22,7 @@ module.exports = function(){
   		};
 	});
 
-	roles.use('view authors books', function (req) {
+	roles.use('view races', function (req) {
 		// /authors/:id/books/
 		// /authors/:id/books/:bookId
   		if(req.user.local.username == req.params.id){
@@ -31,10 +31,10 @@ module.exports = function(){
   		// Don't return false, this way we can get into the next checker.
 	});
 
-	roles.use('edit authors books', function (req) {
+	roles.use('edit races', function (req) {
 		// /authors/:id/books/
 		// /authors/:id/books/:bookId
-  		if(req.user.hasAllRoles(['author', 'owner']) && req.user.local.username == req.params.id){
+  		if(req.user.hasAllRole('admin') && req.user.local.username == req.params.id){
   			return true;
   		};
   		// Don't return false, this way we can get into the next checker.
