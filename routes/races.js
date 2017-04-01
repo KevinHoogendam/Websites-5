@@ -52,9 +52,11 @@ function getRaces(req, res){
 function addRace(req, res){
     if(req.body.name){
         var id = mongoose.Types.ObjectId();
-        var newRace = { _id: id, name: req.body.name};
+        var newRace = { _id: id, name: req.body.name, waypoints: [{}]};
         RaceModel.find({}, function(err, data){
-			new RaceModel(newRace).save();
+			new RaceModel(newRace).save(function(err){
+                if(err)console.log(err);
+            });
 	    });
         
         res.send("New record added with ID: " + id);
@@ -95,7 +97,7 @@ function putRace(req, res){
         else if (req.body.waypoint) {
             var alreadyInRace = RaceModel.find({
                 "_id": req.params.id,
-                "waypoints.id": req.body.waypoint.id
+                "waypoints.googleId": req.body.waypoint.id
             });
             alreadyInRace.exec(function (err, data) {
                 if (data == "") {
