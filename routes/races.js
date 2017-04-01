@@ -9,7 +9,7 @@ RaceModel = mongoose.model('Race');
 
 
 function getAllWaypoints(req, res, next) {
-    if (req.query.contentType == "html") {
+    if (req.get('Accept') != "application/json") {
         request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&location=52%2C5&radius=10000&type=cafe', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.allwaypoints = JSON.parse(body).results;
@@ -27,6 +27,9 @@ function getAllWaypoints(req, res, next) {
 }
 
 function getRaces(req, res){
+    
+    
+
 
     var query = {};
 	if(req.params.id){
@@ -36,17 +39,17 @@ function getRaces(req, res){
 	var result = RaceModel.find(query);
 	result.sort({ ranking: 1 })
 
-	result.exec(function(err, data){
+    result.exec(function (err, data) {
 
-		if(err){ return handleError(req, res, 500, err); }
+        if (err) { return handleError(req, res, 500, err); }
 
-       if(req.query.contentType == "html"){
-         res.render('races/races', { races: data , allwaypoints: res.allwaypoints});
-       }
-       else{
-           return res.json(data);
-       }
-	});
+        if (req.get('Accept') != "application/json") {
+            res.render('races/races', { races: data, allwaypoints: res.allwaypoints });
+        }
+        else {
+            return res.json(data);
+        }
+    });
 }
 
 function addRace(req, res){
