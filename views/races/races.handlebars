@@ -54,7 +54,7 @@
         $.ajax({
             url: '/races/' + raceId,
             type: 'PUT',
-            data: { waypoint: {id: waypointId, name: waypointName} }
+            data: { waypoint: {googleId: waypointId, name: waypointName} }
         });
         location.reload();
     });

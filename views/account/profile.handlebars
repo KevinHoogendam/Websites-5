@@ -1,5 +1,6 @@
 <div class="page-header text-center">
     <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+     <h1> Welcome {{ user.roles }}</h1>
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 </div>
 
@@ -16,7 +17,7 @@
             </p>
         </div>
         <div class="well">
-            <a href="/races?contentType=html">Races</a><br />
+            <a href="/races">Races</a><br />
         </div>
     </div>
     <!-- GOOGLE INFORMATION -->
@@ -29,6 +30,7 @@
                     <strong>token</strong>: {{ user.google.token }}<br>
                     <strong>email</strong>: {{ user.google.email }}<br>
                     <strong>name</strong>: {{ user.google.name }}
+                    
                 </p>
 
         </div>
