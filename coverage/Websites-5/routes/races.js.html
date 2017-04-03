@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for Websites-5/routes/races.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">Websites-5/routes</a> races.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.95% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>35/73</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">31.25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">53.33% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">51.47% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>35/68</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var express = require('express');
+var router = express.Router();
+var async = require('async');
+var handleError;
+var request = require('request');
+var mongoose = require('mongoose');
+var _ = require('underscore');
+RaceModel = mongoose.model('Race');
+&nbsp;
+&nbsp;
+&nbsp;
+function getAllWaypoints(req, res, next) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnJSON(req)) {
+        request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&amp;location=52%2C5&amp;radius=10000&amp;type=cafe', function (error, response, body) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; response.statusCode == 200) {
+                res.allwaypoints = JSON.parse(body).results;
+                next();
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                console.log("Fout bij ophalen Google Waypoints API");</span>
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            }
+        });
+    }
+    else {
+<span class="cstat-no" title="statement not covered" >        next();</span>
+    }
+}
+&nbsp;
+function getRaces(req, res){
+  
+    var query = {};
+	<span class="missing-if-branch" title="if path not taken" >I</span>if(req.params.id){
+<span class="cstat-no" title="statement not covered" >		query._id = req.params.id;</span>
+	} 
+&nbsp;
+	var result = RaceModel.find(query);
+	result.sort({ ranking: 1 })
+&nbsp;
+    result.exec(function (err, data) {
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >return handleError(req, res, 500, err); </span>}
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnJSON(req)) {
+            res.render('races/races', { races: data, allwaypoints: res.allwaypoints });
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >            return res.json(data);</span>
+        }
+    });
+}
+&nbsp;
+function addRace(req, res){
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(req.body.name){
+        var id = <span class="cstat-no" title="statement not covered" >mongoose.Types.ObjectId();</span>
+        var newRace = <span class="cstat-no" title="statement not covered" >{ _id: id, name: req.body.name, waypoints: [{}]};</span>
+<span class="cstat-no" title="statement not covered" >        RaceModel.find({}, <span class="fstat-no" title="function not covered" >fu</span>nction(err, data){</span>
+<span class="cstat-no" title="statement not covered" >			new RaceModel(newRace).save(<span class="fstat-no" title="function not covered" >fu</span>nction(err){</span>
+<span class="cstat-no" title="statement not covered" >                if(err)<span class="cstat-no" title="statement not covered" >console.log(err);</span></span>
+            });
+	    });
+        
+<span class="cstat-no" title="statement not covered" >        res.send("New record added with ID: " + id);</span>
+    }
+    else{
+       res.status(400);
+       res.json({message: "Bad Request"});
+    }
+}
+&nbsp;
+function deleteRace(req, res){
+    console.log("deleting" + req.params.id);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(req.params.id){
+<span class="cstat-no" title="statement not covered" >        RaceModel.findByIdAndRemove(req.params.id).exec();</span>
+<span class="cstat-no" title="statement not covered" >        res.send("Deleted record with ID: +" + req.params.id);</span>
+    }
+    else{
+       res.status(400);
+       res.json({message: "Bad Request"});
+    }
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >putRace(</span>req, res){
+<span class="cstat-no" title="statement not covered" >    console.log(req.body.waypoint);</span>
+<span class="cstat-no" title="statement not covered" >    console.log(req.params.id);</span>
+<span class="cstat-no" title="statement not covered" >    if(req.params.id){</span>
+        var query = <span class="cstat-no" title="statement not covered" >{ '_id': req.params.id };</span>
+<span class="cstat-no" title="statement not covered" >        req.newData = {};</span>
+&nbsp;
+        //Put name
+<span class="cstat-no" title="statement not covered" >        if(req.body.name) {</span>
+<span class="cstat-no" title="statement not covered" >            req.newData.name = req.body.name;</span>
+<span class="cstat-no" title="statement not covered" >            RaceModel.findOneAndUpdate(query, req.newData, <span class="fstat-no" title="function not covered" >fu</span>nction(err, doc){</span>
+<span class="cstat-no" title="statement not covered" >                if (err) <span class="cstat-no" title="statement not covered" >return res.send(500, { error: err });</span></span>
+<span class="cstat-no" title="statement not covered" >                return res.send("Changed record with ID: +" + req.params.id);</span>
+            });
+        }
+        else <span class="cstat-no" title="statement not covered" >if (req.body.waypoint) {</span>
+            var alreadyInRace = <span class="cstat-no" title="statement not covered" >RaceModel.find({</span>
+                "_id": req.params.id,
+                "waypoints.googleId": req.body.waypoint.id
+            });
+<span class="cstat-no" title="statement not covered" >            alreadyInRace.exec(<span class="fstat-no" title="function not covered" >fu</span>nction (err, data) {</span>
+<span class="cstat-no" title="statement not covered" >                if (data == "") {</span>
+<span class="cstat-no" title="statement not covered" >                    console.log("adding waypoint to race");</span>
+<span class="cstat-no" title="statement not covered" >                    RaceModel.findByIdAndUpdate(</span>
+                        req.params.id,
+                        { $push: { "waypoints": req.body.waypoint } },
+                        { upsert: true },
+<span class="fstat-no" title="function not covered" >                        fu</span>nction (err, model) {
+<span class="cstat-no" title="statement not covered" >                            if (err) <span class="cstat-no" title="statement not covered" >console.log(err);</span></span>
+                        }
+                    );
+                }
+            });
+        }
+    }
+    else {
+<span class="cstat-no" title="statement not covered" >        res.status(400);</span>
+<span class="cstat-no" title="statement not covered" >        res.json({message: "Bad Request"});</span>
+    }
+}
+&nbsp;
+function returnJSON(req){
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.get('Accept') == "application/json") <span class="cstat-no" title="statement not covered" >return true;</span>
+    else return false;
+}
+&nbsp;
+&nbsp;
+module.exports = function (user){
+&nbsp;
+    //Routing
+    router.use(getAllWaypoints);
+&nbsp;
+    router.route('/')
+        .get(user.can('view races'), getRaces)
+        .post(user.can('edit races'), addRace)
+        .delete(user.can('edit races'), deleteRace);
+&nbsp;
+    router.route('/:id')
+        .get(user.can('view races'), getRaces)
+        .delete(user.can('edit races'), deleteRace)
+        .put(user.can('edit races'), putRace);
+&nbsp;
+    router.get('*', <span class="fstat-no" title="function not covered" >fu</span>nction(req, res){
+<span class="cstat-no" title="statement not covered" >        res.send('Invalid URL');</span>
+    });
+	return router;
+};</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Apr 03 2017 15:59:31 GMT+0200 (W. Europe Daylight Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>
