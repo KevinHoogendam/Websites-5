@@ -10,7 +10,7 @@ RaceModel = mongoose.model('Race');
 
 
 function getAllWaypoints(req, res, next) {
-    if (req.query.contentType == "html") {
+    if (!returnJSON(req)) {
         request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&location=52%2C5&radius=10000&type=cafe', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.allwaypoints = JSON.parse(body).results;
@@ -28,7 +28,7 @@ function getAllWaypoints(req, res, next) {
 }
 
 function getRaces(req, res){
-
+  
     var query = {};
 	if(req.params.id){
 		query._id = req.params.id;
@@ -37,25 +37,27 @@ function getRaces(req, res){
 	var result = RaceModel.find(query);
 	result.sort({ ranking: 1 })
 
-	result.exec(function(err, data){
+    result.exec(function (err, data) {
 
-		if(err){ return handleError(req, res, 500, err); }
+        if (err) { return handleError(req, res, 500, err); }
 
-       if(req.query.contentType == "html"){
-         res.render('races/races', { races: data , allwaypoints: res.allwaypoints});
-       }
-       else{
-           return res.json(data);
-       }
-	});
+        if (!returnJSON(req)) {
+            res.render('races/races', { races: data, allwaypoints: res.allwaypoints });
+        }
+        else {
+            return res.json(data);
+        }
+    });
 }
 
 function addRace(req, res){
     if(req.body.name){
         var id = mongoose.Types.ObjectId();
-        var newRace = { _id: id, name: req.body.name};
+        var newRace = { _id: id, name: req.body.name, waypoints: [{}]};
         RaceModel.find({}, function(err, data){
-			new RaceModel(newRace).save();
+			new RaceModel(newRace).save(function(err){
+                if(err)console.log(err);
+            });
 	    });
         
         res.send("New record added with ID: " + id);
@@ -96,7 +98,7 @@ function putRace(req, res){
         else if (req.body.waypoint) {
             var alreadyInRace = RaceModel.find({
                 "_id": req.params.id,
-                "waypoints.id": req.body.waypoint.id
+                "waypoints.googleId": req.body.waypoint.id
             });
             alreadyInRace.exec(function (err, data) {
                 if (data == "") {
@@ -119,7 +121,12 @@ function putRace(req, res){
     }
 }
 
-// Export
+function returnJSON(req){
+    if (req.get('Accept') == "application/json") return true;
+    else return false;
+}
+
+
 module.exports = function (user){
 
     //Routing
