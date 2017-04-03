@@ -9,7 +9,7 @@ RaceModel = mongoose.model('Race');
 
 
 function getAllWaypoints(req, res, next) {
-    if (req.get('Accept') != "application/json") {
+    if (!returnJSON(req)) {
         request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&location=52%2C5&radius=10000&type=cafe', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.allwaypoints = JSON.parse(body).results;
@@ -27,10 +27,7 @@ function getAllWaypoints(req, res, next) {
 }
 
 function getRaces(req, res){
-    
-    
-
-
+  
     var query = {};
 	if(req.params.id){
 		query._id = req.params.id;
@@ -43,7 +40,7 @@ function getRaces(req, res){
 
         if (err) { return handleError(req, res, 500, err); }
 
-        if (req.get('Accept') != "application/json") {
+        if (!returnJSON(req)) {
             res.render('races/races', { races: data, allwaypoints: res.allwaypoints });
         }
         else {
@@ -121,6 +118,11 @@ function putRace(req, res){
         res.status(400);
         res.json({message: "Bad Request"});
     }
+}
+
+function returnJSON(req){
+    if (req.get('Accept') == "application/json") return true;
+    else return false;
 }
 
 //Routing
