@@ -59,7 +59,7 @@ var init = function(User) {
                     // set the user's local credentials
                     newUser.local.username    = username;
                     newUser.local.password = newUser.generateHash(password);
-                    newUser.roles = ["guest"];
+                    newUser.roles = ["admin"];
 
                     // save the user
                     newUser.save(function(err) {

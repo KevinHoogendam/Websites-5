@@ -4,6 +4,7 @@ var async = require('async');
 var handleError;
 var request = require('request');
 var mongoose = require('mongoose');
+var _ = require('underscore');
 RaceModel = mongoose.model('Race');
 
 
@@ -125,22 +126,24 @@ function returnJSON(req){
     else return false;
 }
 
-//Routing
-router.use(getAllWaypoints);
 
-router.route('/')
-	.get(getRaces)
-	.post(addRace)
-    .delete(deleteRace);
+module.exports = function (user){
 
-router.route('/:id')
-	.get(getRaces)
-    .delete(deleteRace)
-    .put(putRace);
+    //Routing
+    router.use(getAllWaypoints);
 
-router.get('*', function(req, res){
-    res.send('Invalid URL');
-});
+    router.route('/')
+        .get(user.can('view races'), getRaces)
+        .post(user.can('edit races'), addRace)
+        .delete(user.can('edit races'), deleteRace);
 
-//export this router to use in our index.js
-module.exports = router;
+    router.route('/:id')
+        .get(user.can('view races'), getRaces)
+        .delete(user.can('edit races'), deleteRace)
+        .put(user.can('edit races'), putRace);
+
+    router.get('*', function(req, res){
+        res.send('Invalid URL');
+    });
+	return router;
+};
