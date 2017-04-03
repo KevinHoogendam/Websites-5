@@ -7,26 +7,6 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 RaceModel = mongoose.model('Race');
 
-
-
-function getAllWaypoints(req, res, next) {
-    if (!returnJSON(req)) {
-        request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&location=52%2C5&radius=10000&type=cafe', function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.allwaypoints = JSON.parse(body).results;
-                next();
-            }
-            else {
-                console.log("Fout bij ophalen Google Waypoints API");
-                next();
-            }
-        });
-    }
-    else {
-        next();
-    }
-}
-
 function getRaces(req, res){
   
     var query = {};
@@ -81,44 +61,34 @@ function deleteRace(req, res){
 }
 
 function putRace(req, res){
-    console.log(req.body.waypoint);
-    console.log(req.params.id);
-    if(req.params.id){
-        var query = { '_id': req.params.id };
-        req.newData = {};
+	var raceid = req.params.id;
+	var waypointid = req.body.waypoint.googleId;
 
-        //Put name
-        if(req.body.name) {
-            req.newData.name = req.body.name;
-            RaceModel.findOneAndUpdate(query, req.newData, function(err, doc){
-                if (err) return res.send(500, { error: err });
-                return res.send("Changed record with ID: +" + req.params.id);
-            });
-        }
-        else if (req.body.waypoint) {
-            var alreadyInRace = RaceModel.find({
-                "_id": req.params.id,
-                "waypoints.googleId": req.body.waypoint.id
-            });
-            alreadyInRace.exec(function (err, data) {
-                if (data == "") {
-                    console.log("adding waypoint to race");
-                    RaceModel.findByIdAndUpdate(
-                        req.params.id,
-                        { $push: { "waypoints": req.body.waypoint } },
-                        { upsert: true },
-                        function (err, model) {
-                            if (err) console.log(err);
-                        }
-                    );
-                }
-            });
-        }
-    }
-    else {
-        res.status(400);
-        res.json({message: "Bad Request"});
-    }
+	var race;
+	var query = {};
+	query._id = raceid;
+	var result = RaceModel.find(query);	
+	result
+		.then(data => {
+			race = data[0];
+			for (var i = 0; i < race.waypoints.length; i++){
+				if (race.waypoints[i].googleId == waypointid){
+					var waypoint = race.waypoints[i];
+				}
+            }
+
+            if (!waypoint) {
+                RaceModel.findByIdAndUpdate(
+                    raceid,
+                    { $push: { "waypoints": req.body.waypoint } },
+                    { upsert: true },
+                    function (err, model) {
+                        if (err) console.log(err);
+                    }
+                );
+            }
+        })
+		.fail(err => handleError(req, res, 500, err));
 }
 
 function returnJSON(req){
@@ -126,19 +96,33 @@ function returnJSON(req){
     else return false;
 }
 
+function getAllWaypoints(req, res, next) {
+    if (!returnJSON(req)) {
+        request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCc1J3rGp4sCagFF3urCWLiFDFiLSE_h-M&location=52%2C5&radius=10000&type=cafe', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.allwaypoints = JSON.parse(body).results;
+                next();
+            }
+            else {
+                console.log("Fout bij ophalen Google Waypoints API");
+                next();
+            }
+        });
+    }
+    else {
+        next();
+    }
+}
 
 module.exports = function (user){
-
-    //Routing
-    router.use(getAllWaypoints);
-
+//Routing
     router.route('/')
-        .get(user.can('view races'), getRaces)
+        .get(user.can('view races'), getAllWaypoints, getRaces)
         .post(user.can('edit races'), addRace)
         .delete(user.can('edit races'), deleteRace);
 
     router.route('/:id')
-        .get(user.can('view races'), getRaces)
+        .get(user.can('view races'), getAllWaypoints, getRaces)
         .delete(user.can('edit races'), deleteRace)
         .put(user.can('edit races'), putRace);
 
