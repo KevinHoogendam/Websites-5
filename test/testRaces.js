@@ -21,7 +21,8 @@ function makeGetRequest(route, statusCode, done){
 function makePostRequest(route, statusCode, done){
 	request(app)
 		.post(route)
-		.send({"race":{"name":"test"}})
+		.set('Content-Type', 'application/json')
+		.send({"Race":{"name":"postTest"}})
 		.expect(statusCode)
 		.end(function(err, res){
 			if(err){ return done(err); }
@@ -33,7 +34,7 @@ function makePostRequest(route, statusCode, done){
 function makePutRequest(route, statusCode, done){
 	request(app)
 		.put(route)
-		.send({"participant":{"nuid":"98ASDF988SDF89SDF89989SDF9898"}})
+		.send({"Race":{"name":"putTest"}})
 		.expect(statusCode)
 		.end(function(err, res){
 			if(err){ return done(err); }
