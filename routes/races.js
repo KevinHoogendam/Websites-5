@@ -14,8 +14,13 @@ function getRaces(req, res){
 		query._id = req.params.id;
 	} 
 
-	var result = RaceModel.find(query);
-	result.sort({ ranking: 1 })
+
+    var result = RaceModel.find(query);
+    result.sort({ created: -1 });
+    console.log(req.query.startindex);
+
+    if(req.query.startindex) result.skip(parseInt(req.query.startindex)-1);
+    if(req.query.stopindex) result.limit(parseInt(req.query.stopindex));
 
     result.exec(function (err, data) {
 
