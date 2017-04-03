@@ -17,3 +17,4 @@ function init(mongoose){
 }
 
 module.exports = init;
+

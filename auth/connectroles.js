@@ -7,14 +7,6 @@ module.exports = function(){
 	  	}
 	});
 
-	// Access authors can only be done by author
-	roles.use('access authors', function (req) {
-  		if(req.user.hasAnyRole('author')){
-  			return true;
-  		};
-  		// Don't return false, this way we can get into the next checker.
-	});
-
 	// Admins can do everything
 	roles.use(function (req) {
   		if(req.user.hasAnyRole('admin')){
@@ -34,7 +26,7 @@ module.exports = function(){
 	roles.use('edit races', function (req) {
 		// /authors/:id/books/
 		// /authors/:id/books/:bookId
-  		if(req.user.hasAllRole('admin') && req.user.local.username == req.params.id){
+  		if(req.user.hasAnyRole('admin') && req.user.local.username == req.params.id){
   			return true;
   		};
   		// Don't return false, this way we can get into the next checker.
