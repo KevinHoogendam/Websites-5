@@ -32,7 +32,7 @@ module.exports = function(){
   		};
 	});
 
-	roles.use('view races', function (req) {
+	roles.use('view races', function (req) {		
 		// /authors/:id/books/
 		// /authors/:id/books/:bookId
   		if(req.user.local.username == req.params.id){
@@ -48,6 +48,12 @@ module.exports = function(){
   			return true;
   		};
   		// Don't return false, this way we can get into the next checker.
+	});
+
+	roles.use('is user', function (req) {
+  		if(req.user){
+  			return req.user;
+  		}
 	});
 
 	return roles;
