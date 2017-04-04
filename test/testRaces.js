@@ -45,8 +45,7 @@ function makePostRequest(route, statusCode, id, done){
 
 function makePutRequest(route, statusCode, id, done){
 	var data = {
-		id: String(id),
-		//waypoint: {googleId: waypointId, name: waypointName}
+		name: 'putTest'
 	};
 
 	request(app)
@@ -99,20 +98,20 @@ describe('Test for race routing', function(){
 			makePostRequest('/races', 403, idGuest, done);
 		});
 	});
-		// describe('Put /races', function(){
+		describe('Put /races', function(){
 
-		// it('should return 403 when not logged in', function(done){
-		// 	makePutRequest('/races/' + idNoLog, 403, idNoLog, done);
-		// });
-		// it('should return 200 when logged in as admin', function(done){
-		// 	passportStub.login(new User({ roles: ['admin']}));
-		// 	makePutRequest('/races/' + idAdmin, 200, idAdmin, done);
-		// });
-		// it('should return 403 when logged in as guest', function(done){
-		// 	passportStub.login(new User({ roles: ['guest']}));
-		// 	makePutRequest('/races/' + idGuest, 403, idGuest, done);
-		// });
-	//});
+		it('should return 403 when not logged in', function(done){
+			makePutRequest('/races/' + idNoLog, 403, idNoLog, done);
+		});
+		it('should return 201 when logged in as admin', function(done){
+			passportStub.login(new User({ roles: ['admin']}));
+			makePutRequest('/races/' + idAdmin, 201, idAdmin, done);
+		});
+		it('should return 403 when logged in as guest', function(done){
+			passportStub.login(new User({ roles: ['guest']}));
+			makePutRequest('/races/' + idGuest, 403, idGuest, done);
+		});
+	});
 		describe('Delete /races', function(){
 
 		it('should return 403 when not logged in', function(done){
