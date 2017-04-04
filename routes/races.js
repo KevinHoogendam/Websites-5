@@ -8,21 +8,25 @@ var _ = require('underscore');
 RaceModel = mongoose.model('Race');
 
 function getRaces(req, res){
-  
+
     var query = {};
 	if(req.params.id){
 		query._id = req.params.id;
 	} 
 
-	var result = RaceModel.find(query);
-	result.sort({ ranking: 1 })
+    var result = RaceModel.find(query);
+    result.sort({ created: -1 });
+    console.log(req.query.startindex);
+
+    if(req.query.startindex) result.skip(parseInt(req.query.startindex)-1);
+    if(req.query.stopindex) result.limit(parseInt(req.query.stopindex));
 
     result.exec(function (err, data) {
 
         if (err) { return handleError(req, res, 500, err); }
 
         if (!returnJSON(req)) {
-            res.render('races/races', { races: data, allwaypoints: res.allwaypoints });
+            res.render('races/races', { races: data, allwaypoints: res.allwaypoints, user: req.user });
         }
         else {
             return res.json(data);
@@ -33,14 +37,16 @@ function getRaces(req, res){
 function addRace(req, res){
     if(req.body.name){
         var id = mongoose.Types.ObjectId();
-        var newRace = { _id: id, name: req.body.name, waypoints: [{}]};
+        var newRace = { _id: id, name: req.body.name };
         RaceModel.find({}, function(err, data){
-			new RaceModel(newRace).save(function(err){
-                if(err)console.log(err);
+			new RaceModel(newRace).save(function(err, data){
+                if(err){
+                    console.log(err);
+                    res.send({error: err});
+                }
+                else  res.send(data);
             });
 	    });
-        
-        res.send("New record added with ID: " + id);
     }
     else{
        res.status(400);
@@ -49,7 +55,6 @@ function addRace(req, res){
 }
 
 function deleteRace(req, res){
-    console.log("deleting" + req.params.id);
     if(req.params.id){
         RaceModel.findByIdAndRemove(req.params.id).exec();
         res.send("Deleted record with ID: +" + req.params.id);
@@ -91,6 +96,10 @@ function putRace(req, res){
 		.fail(err => handleError(req, res, 500, err));
 }
 
+function tagWaypoint(req, res){
+    console.log(tagWaypoint);
+}
+
 function returnJSON(req){
     if (req.get('Accept') == "application/json") return true;
     else return false;
@@ -115,6 +124,7 @@ function getAllWaypoints(req, res, next) {
 }
 
 module.exports = function (user){
+    
 //Routing
     router.route('/')
         .get(user.can('view races'), getAllWaypoints, getRaces)
@@ -126,8 +136,12 @@ module.exports = function (user){
         .delete(user.can('edit races'), deleteRace)
         .put(user.can('edit races'), putRace);
 
+    router.route('/:raceid/:waypointid')
+        .put(tagWaypoint);
+
     router.get('*', function(req, res){
         res.send('Invalid URL');
     });
+
 	return router;
 };

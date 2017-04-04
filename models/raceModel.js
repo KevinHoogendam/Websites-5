@@ -3,10 +3,8 @@ function init(mongoose){
 
 	var raceSchema = new mongoose.Schema({
 		name: { type: String, required: true },
-		waypoints: [{googleId: String, name: String}]
+		waypoints: [{googleId: String, name: String, users: [{ type: String, ref: 'User'}]}]
 	},
-
-//, users: [{ type: String, ref: 'User'}]}
 
 	{ // settings:
 		toObject: { virtuals: true },

@@ -16,9 +16,12 @@
                 <strong>Name: </strong><span>{{name}}</span><br />
                 <strong>Waypoints:</strong><br />
                 {{#each waypoints}}
-                <strong>waypointName: </strong><span>{{name}}</span><br />           
+                <strong style="margin-left: 20px">waypointName: </strong><span>{{name}}</span>
+                <button id="{{googleId}}">Tag waypoint</button>
+                <br />           
                 {{/each}}
-                <button class="deleteRace" id="delete{{_id}}">delete</button>
+                <br />  
+                <button class="deleteRace" id="delete{{_id}}">Delete Race</button>
                 <select class="waypointselect" id="waypointselect{{_id}}">
                     {{#each ../allwaypoints}}
                     <option value="{{id}}">{{name}}</option>
@@ -27,7 +30,7 @@
                 <button class="addWaypoint" id="addWaypoint{{_id}}">Add Waypoint</button>
             </div>
         </li>
-        <br />
+        <br /><br /><br />
         {{/each}}
     </ul>
     <br />
