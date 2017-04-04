@@ -121,6 +121,10 @@ function putRace(req, res){
                     name: racename,
                 }, function (err, model) {
                     if (err) handleError(req, res, 500, err);
+                    else { 
+                        res.status(201);
+                        res.send(data);
+                    }
                 })
             }
         })
