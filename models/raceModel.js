@@ -3,7 +3,7 @@ function init(mongoose){
 
 	var raceSchema = new mongoose.Schema({
 		name: { type: String, required: true },
-		waypoints: [{googleId: String, name: String, users: [{ type: String, ref: 'User'}]}]
+		waypoints: [{googleId: String, name: String, users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]}]
 	},
 
 	{ // settings:
