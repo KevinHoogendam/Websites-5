@@ -113,7 +113,7 @@ function tagWaypoint(req, res) {
     var userid = req.user._id;
 
 	var race;
-	var query = {};
+	var query = {}; 
 	query._id = raceid;
 	var result = RaceModel.find(query);	
 
