@@ -70,10 +70,12 @@ mongoose.connect(connectionString);
 //Require Routes
 var login = require('./routes/login.js')(passport, roles);
 var races = require('./routes/races.js')(roles);
+var users = require('./routes/users.js')(roles);
 var places = require('./routes/places.js');
 
 app.use('/', login);
 app.use('/races', races); 
+app.use('/users', users); 
 app.use('/places', places); 
 // /Require Routes
 

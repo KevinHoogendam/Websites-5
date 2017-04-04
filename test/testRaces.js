@@ -90,29 +90,29 @@ describe('Test for race routing', function(){
 		it('should return 403 when not logged in', function(done){
 			makePostRequest('/races', 403, idNoLog, done);
 		});
-		it('should return 200 when logged in as admin', function(done){
+		it('should return 201 when logged in as admin', function(done){
 			passportStub.login(new User({ roles: ['admin']}));
-			makePostRequest('/races', 200, idAdmin, done);
+			makePostRequest('/races', 201, idAdmin, done);
 		});
 		it('should return 403 when logged in as guest', function(done){
 			passportStub.login(new User({ roles: ['guest']}));
 			makePostRequest('/races', 403, idGuest, done);
 		});
 	});
-	// 	describe('Put /races', function(){
+		// describe('Put /races', function(){
 
-	// 	it('should return 403 when not logged in', function(done){
-	// 		makePutRequest('/races/' + idNoLog, 403, idNoLog, done);
-	// 	});
-	// 	it('should return 200 when logged in as admin', function(done){
-	// 		passportStub.login(new User({ roles: ['admin']}));
-	// 		makePutRequest('/races/' + idAdmin, 200, idAdmin, done);
-	// 	});
-	// 	it('should return 403 when logged in as guest', function(done){
-	// 		passportStub.login(new User({ roles: ['guest']}));
-	// 		makePutRequest('/races/' + idGuest, 403, idGuest, done);
-	// 	});
-	// });
+		// it('should return 403 when not logged in', function(done){
+		// 	makePutRequest('/races/' + idNoLog, 403, idNoLog, done);
+		// });
+		// it('should return 200 when logged in as admin', function(done){
+		// 	passportStub.login(new User({ roles: ['admin']}));
+		// 	makePutRequest('/races/' + idAdmin, 200, idAdmin, done);
+		// });
+		// it('should return 403 when logged in as guest', function(done){
+		// 	passportStub.login(new User({ roles: ['guest']}));
+		// 	makePutRequest('/races/' + idGuest, 403, idGuest, done);
+		// });
+	//});
 		describe('Delete /races', function(){
 
 		it('should return 403 when not logged in', function(done){

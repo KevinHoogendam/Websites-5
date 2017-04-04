@@ -39,6 +39,13 @@ module.exports = function(){
   		// Don't return false, this way we can get into the next checker.
 	});
 
+	roles.use('view users', function (req) {
+  		if(req.user.hasAnyRole('admin') && req.user.local.username == req.params.id){
+  			return true;
+  		};
+  		// Don't return false, this way we can get into the next checker.
+	});
+
 	roles.use('edit races', function (req) {
   		if(req.user.hasAnyRole('admin') && req.user.local.username == req.params.id){
   			return true;

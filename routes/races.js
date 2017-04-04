@@ -16,7 +16,6 @@ function getRaces(req, res){
 
     var result = RaceModel.find(query);
     result.sort({ created: -1 });
-    console.log(req.query.startindex);
 
     if(req.query.startindex) result.skip(parseInt(req.query.startindex)-1);
     if(req.query.stopindex) result.limit(parseInt(req.query.stopindex));
@@ -44,7 +43,10 @@ function addRace(req, res){
                     console.log(err);
                     res.send({error: err});
                 }
-                else  res.send(data);
+                else  {
+                    res.status(201);
+                    res.send(data);
+                }
             });
 	    });
     }
