@@ -44,7 +44,7 @@ mongoose.connect(connectionString);
     model.Race = require('./models/raceModel')(mongoose);
     model.User = require('./models/userModel')(mongoose);
 
-    require('./models/fillTestData')(model);
+    require('./test/fillTestData')(model);
 // /Models
 
 // Passport
@@ -78,5 +78,5 @@ app.use('/places', places);
 // /Require Routes
 
 
-
+module.exports = app;
 app.listen(process.env.PORT || 3000);

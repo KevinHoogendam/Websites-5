@@ -1,13 +1,31 @@
 var ConnectRoles = require('connect-roles');
+var express = require('express');
 
 module.exports = function(){
 	var roles = new ConnectRoles({
   		failureHandler: function (req, res, action) {
-      		res.render('access-denied', {action: action});
+	    	// optional function to customise code that runs when 
+	    	// user fails authorisation 
+	    	var accept = req.headers.accept || '';
+	    	res.status(403);
+	    	// If we're requesting html, render view
+	    	if (~accept.indexOf('html')) {
+	      		res.render('access-denied', {action: action});
+    		} else { // Else send plain text
+	      		res.send('Access Denied - You don\'t have permission to: ' + action);
+	    	}
 	  	}
 	});
 
-	// Admins can do everything
+
+
+		// Anonymous users can only see home page
+	roles.use(function (req, action) {
+		// isAuthenticated is Passport.js
+  		if (!req.isAuthenticated()) return action === 'access home page';
+	});
+
+		// Admins can do everything
 	roles.use(function (req) {
   		if(req.user.hasAnyRole('admin')){
   			return true;
