@@ -71,7 +71,7 @@ function deleteRace(req, res){
                 handleError(req, res, 500, err);
             }
             else {
-                res.status(201);
+                res.status(200);
                 res.send(data);
             }
         });
