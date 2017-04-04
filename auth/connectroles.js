@@ -33,8 +33,6 @@ module.exports = function(){
 	});
 
 	roles.use('view races', function (req) {
-		// /authors/:id/books/
-		// /authors/:id/books/:bookId
   		if(req.user.local.username == req.params.id){
   			return true;
   		};
@@ -42,8 +40,6 @@ module.exports = function(){
 	});
 
 	roles.use('edit races', function (req) {
-		// /authors/:id/books/
-		// /authors/:id/books/:bookId
   		if(req.user.hasAnyRole('admin') && req.user.local.username == req.params.id){
   			return true;
   		};

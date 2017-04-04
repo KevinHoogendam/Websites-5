@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">51.52% </span>
+        <span class="strong">59.09% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>34/66</span>
+        <span class='fraction'>39/66</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">38.46% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>10/26</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">53.33% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>8/15</span>
+        <span class='fraction'>10/15</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">54.84% </span>
+        <span class="strong">62.9% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>34/62</span>
+        <span class='fraction'>39/62</span>
       </div>
     </div>
   </div>
@@ -209,37 +209,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -340,38 +340,38 @@ function getRaces(req, res){
 }
 &nbsp;
 function addRace(req, res){
-    <span class="missing-if-branch" title="if path not taken" >I</span>if(req.body.name){
-        var id = <span class="cstat-no" title="statement not covered" >mongoose.Types.ObjectId();</span>
-        var newRace = <span class="cstat-no" title="statement not covered" >{ _id: id, name: req.body.name, waypoints: [{}]};</span>
-<span class="cstat-no" title="statement not covered" >        RaceModel.find({}, <span class="fstat-no" title="function not covered" >fu</span>nction(err, data){</span>
-<span class="cstat-no" title="statement not covered" >			new RaceModel(newRace).save(<span class="fstat-no" title="function not covered" >fu</span>nction(err){</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if(req.body.name){
+        var id = mongoose.Types.ObjectId();
+        var newRace = { _id: id, name: req.body.name, waypoints: [{}]};
+        RaceModel.find({}, function(err, data){
+			new RaceModel(newRace).save(<span class="fstat-no" title="function not covered" >fu</span>nction(err){
 <span class="cstat-no" title="statement not covered" >                if(err)<span class="cstat-no" title="statement not covered" >console.log(err);</span></span>
             });
 	    });
         
-<span class="cstat-no" title="statement not covered" >        res.send("New record added with ID: " + id);</span>
+        res.send("New record added with ID: " + id);
     }
     else{
-       res.status(400);
-       res.json({message: "Bad Request"});
+<span class="cstat-no" title="statement not covered" >       res.status(400);</span>
+<span class="cstat-no" title="statement not covered" >       res.json({message: "Bad Request"});</span>
     }
 }
 &nbsp;
 function deleteRace(req, res){
     console.log("deleting" + req.params.id);
-    <span class="missing-if-branch" title="if path not taken" >I</span>if(req.params.id){
-<span class="cstat-no" title="statement not covered" >        RaceModel.findByIdAndRemove(req.params.id).exec();</span>
-<span class="cstat-no" title="statement not covered" >        res.send("Deleted record with ID: +" + req.params.id);</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if(req.params.id){
+        RaceModel.findByIdAndRemove(req.params.id).exec();
+        res.send("Deleted record with ID: +" + req.params.id);
     }
     else{
-       res.status(400);
-       res.json({message: "Bad Request"});
+<span class="cstat-no" title="statement not covered" >       res.status(400);</span>
+<span class="cstat-no" title="statement not covered" >       res.json({message: "Bad Request"});</span>
     }
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >putRace(</span>req, res){
-	var raceid = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
-	var waypointid = <span class="cstat-no" title="statement not covered" >req.body.waypoint.googleId;</span>
+function putRace(req, res){
+	var raceid = req.params.id;
+	var waypointid = req.body.waypoint.googleId;
 &nbsp;
 	var race;
 	var query = <span class="cstat-no" title="statement not covered" >{};</span>
@@ -445,7 +445,7 @@ module.exports = function (user){
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Apr 03 2017 16:30:28 GMT+0200 (W. Europe Daylight Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 04 2017 14:44:25 GMT+0200 (W. Europe Daylight Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>
