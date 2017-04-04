@@ -71,12 +71,10 @@ mongoose.connect(connectionString);
 var login = require('./routes/login.js')(passport, roles);
 var races = require('./routes/races.js')(roles, handleError);
 var users = require('./routes/users.js')(roles);
-var places = require('./routes/places.js');
 
 app.use('/', login);
 app.use('/races', races); 
 app.use('/users', users); 
-app.use('/places', places); 
 // /Require Routes
 
 
