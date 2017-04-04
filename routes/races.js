@@ -15,7 +15,7 @@ function getRaces(req, res){
 	} 
 
     var result = RaceModel.find(query);
-    result.sort({ created: -1 });
+    result.sort({ ranking: 1 });
 
     if(req.query.startindex) result.skip(parseInt(req.query.startindex)-1);
     if(req.query.stopindex) result.limit(parseInt(req.query.stopindex));
@@ -49,8 +49,7 @@ function addRace(req, res){
         RaceModel.find({}, function(err, data){
 			new RaceModel(newRace).save(function(err, data){
                 if(err){
-                    console.log(err);
-                    res.send({error: err});
+                    handleError(req, res, 500, err);
                 }
                 else  {
                     res.status(201);
@@ -66,11 +65,18 @@ function addRace(req, res){
 }
 
 function deleteRace(req, res){
-    if(req.params.id){
-        RaceModel.findByIdAndRemove(req.params.id).exec();
-        res.send("Deleted record with ID: +" + req.params.id);
+    if (req.params.id) {
+        RaceModel.findByIdAndRemove(req.params.id).exec(function (err, data) {
+            if (err) {
+                handleError(req, res, 500, err);
+            }
+            else {
+                res.status(201);
+                res.send(data);
+            }
+        });
     }
-    else{
+    else {
        res.status(400);
        res.json({message: "Bad Request"});
     }
@@ -104,7 +110,7 @@ function putRace(req, res){
                         { $push: { "waypoints": req.body.waypoint } },
                         { upsert: true },
                         function (err, model) {
-                            if (err) console.log(err);
+                            if (err) handleError(req, res, 500, err);
                         }
                     );
                 }
@@ -114,7 +120,11 @@ function putRace(req, res){
                 RaceModel.update({ _id: raceid }, {
                     name: racename,
                 }, function (err, model) {
-                    if (err) console.log(err);
+                    if (err) handleError(req, res, 500, err);
+                    else { 
+                        res.status(201);
+                        res.send(data);
+                    }
                 })
             }
         })
@@ -149,8 +159,6 @@ function tagWaypoint(req, res) {
                 }
             }
 
-            console.log(user);
-
             if (waypoint && !user) {
                 RaceModel.update({ 'waypoints._id': waypointid }, {
                     '$push': {
@@ -158,7 +166,8 @@ function tagWaypoint(req, res) {
                     }
                 },
                 function (err, model) {
-                        if (err) console.log(err);
+                        if (err) handleError(req, res, 500, err);
+                        
                     }
                 );
             }
@@ -189,8 +198,8 @@ function getAllWaypoints(req, res, next) {
     }
 }
 
-module.exports = function (user){
-    
+module.exports = function (user, errCallback){
+    handleError = errCallback;
 //Routing
     router.route('/')
         .get(user.can('view races'), getAllWaypoints, getRaces)
