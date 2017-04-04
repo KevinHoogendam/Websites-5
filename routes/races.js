@@ -78,30 +78,44 @@ function deleteRace(req, res){
 
 function putRace(req, res){
 	var raceid = req.params.id;
-	var waypointid = req.body.waypoint.googleId;
+    var waypointid;
+    if(req.body.waypoint) waypointid = req.body.waypoint.googleId;
+    var racename = req.body.name;
 
 	var race;
 	var query = {};
 	query._id = raceid;
 	var result = RaceModel.find(query);	
+
 	result
 		.then(data => {
 			race = data[0];
-			for (var i = 0; i < race.waypoints.length; i++){
-				if (race.waypoints[i].googleId == waypointid){
-					var waypoint = race.waypoints[i];
-				}
+
+            if (waypointid) {
+                for (var i = 0; i < race.waypoints.length; i++) {
+                    if (race.waypoints[i].googleId == waypointid) {
+                        var waypoint = race.waypoints[i];
+                    }
+                }
+
+                if (!waypoint) {
+                    RaceModel.findByIdAndUpdate(
+                        raceid,
+                        { $push: { "waypoints": req.body.waypoint } },
+                        { upsert: true },
+                        function (err, model) {
+                            if (err) console.log(err);
+                        }
+                    );
+                }
             }
 
-            if (!waypoint) {
-                RaceModel.findByIdAndUpdate(
-                    raceid,
-                    { $push: { "waypoints": req.body.waypoint } },
-                    { upsert: true },
-                    function (err, model) {
-                        if (err) console.log(err);
-                    }
-                );
+            if (racename) {
+                RaceModel.update({ _id: raceid }, {
+                    name: racename,
+                }, function (err, model) {
+                    if (err) console.log(err);
+                })
             }
         })
 		.fail(err => handleError(req, res, 500, err));
