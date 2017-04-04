@@ -46,5 +46,11 @@ module.exports = function(){
   		// Don't return false, this way we can get into the next checker.
 	});
 
+	roles.use('is user', function (req) {
+  		if(req.user){
+  			return req.user;
+  		}
+	});
+
 	return roles;
 };
