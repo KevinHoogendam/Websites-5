@@ -25,6 +25,15 @@ function getRaces(req, res){
         if (err) { return handleError(req, res, 500, err); }
 
         if (!returnJSON(req)) {
+            data.forEach(function (race) {
+                race.waypoints.forEach(function (waypoint){
+                    waypoint.users.forEach(function (user){
+                            if(String(user) == String(req.user._id)){
+                                waypoint.visited = true;
+                            }
+                    });
+                });
+            });
             res.render('races/races', { races: data, allwaypoints: res.allwaypoints, user: req.user });
         }
         else {
@@ -98,8 +107,49 @@ function putRace(req, res){
 		.fail(err => handleError(req, res, 500, err));
 }
 
-function tagWaypoint(req, res){
-    console.log(tagWaypoint);
+function tagWaypoint(req, res) {
+    var raceid = req.params.raceid;
+    var waypointid = req.params.waypointid;
+    var userid = req.user._id;
+
+	var race;
+	var query = {};
+	query._id = raceid;
+	var result = RaceModel.find(query);	
+
+    result
+		.then(data => {
+			race = data[0];
+			for (var i = 0; i < race.waypoints.length; i++){
+				if (race.waypoints[i]._id == waypointid){
+					var waypoint = race.waypoints[i];
+				}
+            }
+
+            if (waypoint) {
+                for (var i = 0; i < waypoint.users.length; i++) {
+               
+                    if (String(waypoint.users[i]) == String(userid)) {
+                        var user = waypoint.users[i];
+                    }
+                }
+            }
+
+            console.log(user);
+
+            if (waypoint && !user) {
+                RaceModel.update({ 'waypoints._id': waypointid }, {
+                    '$push': {
+                        'waypoints.$.users': { _id: userid}
+                    }
+                },
+                function (err, model) {
+                        if (err) console.log(err);
+                    }
+                );
+            }
+        })
+		.fail(err => handleError(req, res, 500, err));
 }
 
 function returnJSON(req){

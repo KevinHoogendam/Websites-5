@@ -17,7 +17,11 @@
                 <strong>Waypoints:</strong><br />
                 {{#each waypoints}}
                 <strong style="margin-left: 20px">waypointName: </strong><span>{{name}}</span>
-                <button id="{{googleId}}">Tag waypoint</button>
+                {{#if visited}}
+                <strong>Tagged!</strong>
+                {{else}}
+                <button class="tagwaypoint" value="{{../../_id}}" id="{{../_id}}">Tag waypoint</button>
+                {{/if}}            
                 <br />           
                 {{/each}}
                 <br />  
@@ -58,6 +62,14 @@
             url: '/races/' + raceId,
             type: 'PUT',
             data: { waypoint: {googleId: waypointId, name: waypointName} }
+        });
+        location.reload();
+    });
+
+    $(".tagwaypoint").click(function () {
+        $.ajax({
+            url: '/races/' + $(this).attr('value') + '/' + $(this).attr('id'),
+            type: 'PUT'
         });
         location.reload();
     });
